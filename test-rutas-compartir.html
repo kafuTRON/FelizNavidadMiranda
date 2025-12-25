@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔧 Test de Rutas para Compartir</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            padding: 20px; 
+            background: #f0f8ff;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .test-section { 
+            margin-bottom: 30px; 
+            padding: 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            background: #fafafa;
+        }
+        .test-image { 
+            margin: 10px; 
+            max-width: 200px; 
+            border: 3px solid #ddd; 
+            display: block;
+            border-radius: 5px;
+        }
+        .test-image.success { border-color: #4CAF50; }
+        .test-image.error { border-color: #f44336; }
+        .status { 
+            padding: 12px; 
+            margin: 10px 0; 
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        .success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .info { background: #d1ecf1; color: #0c5460; border: 1px solid #bee5eb; }
+        .path-info {
+            background: #f8f9fa;
+            padding: 12px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            margin: 8px 0;
+            border-left: 4px solid #007bff;
+            font-size: 13px;
+        }
+        h1 { color: #333; text-align: center; margin-bottom: 30px; }
+        h2 { color: #555; border-bottom: 3px solid #007bff; padding-bottom: 8px; }
+        h3 { color: #666; margin-top: 25px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .summary { 
+            background: #e9ecef; 
+            padding: 20px; 
+            border-radius: 8px; 
+            margin-top: 30px;
+            border-left: 5px solid #007bff;
+        }
+        .url-info {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔧 Test Completo de Rutas para Compartir Proyecto</h1>
+        
+        <div class="url-info">
+            <h3>📍 Información del Entorno</h3>
+            <div class="path-info">
+                <strong>URL actual:</strong> <span id="current-url"></span><br>
+                <strong>Protocolo:</strong> <span id="protocol"></span><br>
+                <strong>Host:</strong> <span id="host"></span><br>
+                <strong>Directorio:</strong> <span id="directory"></span>
+            </div>
+        </div>
+
+        <div class="grid">
+            <!-- SuperPino.png Tests -->
+            <div class="test-section">
+                <h2>🌲 SuperPino.png</h2>
+                
+                <h3>Ruta Relativa Normal</h3>
+                <div class="path-info">./Recursos/Principal/SuperPino.png</div>
+                <img src="./Recursos/Principal/SuperPino.png" alt="SuperPino Normal" class="test-image" 
+                     onload="markSuccess(this, 'superpino-normal')" 
+                     onerror="markError(this, 'superpino-normal')">
+                <div id="superpino-normal" class="status info">Cargando...</div>
+
+                <h3>Sin Punto</h3>
+                <div class="path-info">Recursos/Principal/SuperPino.png</div>
+                <img src="Recursos/Principal/SuperPino.png" alt="SuperPino Sin Punto" class="test-image"
+                     onload="markSuccess(this, 'superpino-sinpunto')" 
+                     onerror="markError(this, 'superpino-sinpunto')">
+                <div id="superpino-sinpunto" class="status info">Cargando...</div>
+
+                <h3>Desde Raíz del Proyecto</h3>
+                <div class="path-info">./paginafeliznavidadXD/Recursos/Principal/SuperPino.png</div>
+                <img src="./paginafeliznavidadXD/Recursos/Principal/SuperPino.png" alt="SuperPino Raíz" class="test-image"
+                     onload="markSuccess(this, 'superpino-raiz')" 
+                     onerror="markError(this, 'superpino-raiz')">
+                <div id="superpino-raiz" class="status info">Cargando...</div>
+
+                <h3>Ruta Absoluta</h3>
+                <div class="path-info">/paginafeliznavidadXD/Recursos/Principal/SuperPino.png</div>
+                <img src="/paginafeliznavidadXD/Recursos/Principal/SuperPino.png" alt="SuperPino Absoluta" class="test-image"
+                     onload="markSuccess(this, 'superpino-absoluta')" 
+                     onerror="markError(this, 'superpino-absoluta')">
+                <div id="superpino-absoluta" class="status info">Cargando...</div>
+            </div>
+
+            <!-- CartaCerrada.jpeg Tests -->
+            <div class="test-section">
+                <h2>💌 CartaCerrada.jpeg</h2>
+                
+                <h3>Ruta Relativa Normal</h3>
+                <div class="path-info">./Recursos/Carta/CartaCerrada.jpeg</div>
+                <img src="./Recursos/Carta/CartaCerrada.jpeg" alt="Carta Normal" class="test-image"
+                     onload="markSuccess(this, 'carta-normal')" 
+                     onerror="markError(this, 'carta-normal')">
+                <div id="carta-normal" class="status info">Cargando...</div>
+
+                <h3>Sin Punto</h3>
+                <div class="path-info">Recursos/Carta/CartaCerrada.jpeg</div>
+                <img src="Recursos/Carta/CartaCerrada.jpeg" alt="Carta Sin Punto" class="test-image"
+                     onload="markSuccess(this, 'carta-sinpunto')" 
+                     onerror="markError(this, 'carta-sinpunto')">
+                <div id="carta-sinpunto" class="status info">Cargando...</div>
+
+                <h3>Desde Raíz del Proyecto</h3>
+                <div class="path-info">./paginafeliznavidadXD/Recursos/Carta/CartaCerrada.jpeg</div>
+                <img src="./paginafeliznavidadXD/Recursos/Carta/CartaCerrada.jpeg" alt="Carta Raíz" class="test-image"
+                     onload="markSuccess(this, 'carta-raiz')" 
+                     onerror="markError(this, 'carta-raiz')">
+                <div id="carta-raiz" class="status info">Cargando...</div>
+
+                <h3>Ruta Absoluta</h3>
+                <div class="path-info">/paginafeliznavidadXD/Recursos/Carta/CartaCerrada.jpeg</div>
+                <img src="/paginafeliznavidadXD/Recursos/Carta/CartaCerrada.jpeg" alt="Carta Absoluta" class="test-image"
+                     onload="markSuccess(this, 'carta-absoluta')" 
+                     onerror="markError(this, 'carta-absoluta')">
+                <div id="carta-absoluta" class="status info">Cargando...</div>
+            </div>
+
+            <!-- CartaAbierta.png Tests -->
+            <div class="test-section">
+                <h2>📖 CartaAbierta.png</h2>
+                
+                <h3>Ruta Relativa Normal</h3>
+                <div class="path-info">./Recursos/Carta/CartaAbierta.png</div>
+                <img src="./Recursos/Carta/CartaAbierta.png" alt="Carta Abierta Normal" class="test-image"
+                     onload="markSuccess(this, 'cartaabierta-normal')" 
+                     onerror="markError(this, 'cartaabierta-normal')">
+                <div id="cartaabierta-normal" class="status info">Cargando...</div>
+
+                <h3>Sin Punto</h3>
+                <div class="path-info">Recursos/Carta/CartaAbierta.png</div>
+                <img src="Recursos/Carta/CartaAbierta.png" alt="Carta Abierta Sin Punto" class="test-image"
+                     onload="markSuccess(this, 'cartaabierta-sinpunto')" 
+                     onerror="markError(this, 'cartaabierta-sinpunto')">
+                <div id="cartaabierta-sinpunto" class="status info">Cargando...</div>
+
+                <h3>Desde Raíz del Proyecto</h3>
+                <div class="path-info">./paginafeliznavidadXD/Recursos/Carta/CartaAbierta.png</div>
+                <img src="./paginafeliznavidadXD/Recursos/Carta/CartaAbierta.png" alt="Carta Abierta Raíz" class="test-image"
+                     onload="markSuccess(this, 'cartaabierta-raiz')" 
+                     onerror="markError(this, 'cartaabierta-raiz')">
+                <div id="cartaabierta-raiz" class="status info">Cargando...</div>
+
+                <h3>Ruta Absoluta</h3>
+                <div class="path-info">/paginafeliznavidadXD/Recursos/Carta/CartaAbierta.png</div>
+                <img src="/paginafeliznavidadXD/Recursos/Carta/CartaAbierta.png" alt="Carta Abierta Absoluta" class="test-image"
+                     onload="markSuccess(this, 'cartaabierta-absoluta')" 
+                     onerror="markError(this, 'cartaabierta-absoluta')">
+                <div id="cartaabierta-absoluta" class="status info">Cargando...</div>
+            </div>
+
+            <!-- Imagen Final Tests -->
+            <div class="test-section">
+                <h2>🖼️ yoquelerlamucho.jpeg</h2>
+                
+                <h3>Ruta Relativa Normal</h3>
+                <div class="path-info">./Recursos/ParaElFinal/yoquelerlamucho.jpeg</div>
+                <img src="./Recursos/ParaElFinal/yoquelerlamucho.jpeg" alt="Imagen Final Normal" class="test-image"
+                     onload="markSuccess(this, 'imagenfinal-normal')" 
+                     onerror="markError(this, 'imagenfinal-normal')">
+                <div id="imagenfinal-normal" class="status info">Cargando...</div>
+
+                <h3>Sin Punto</h3>
+                <div class="path-info">Recursos/ParaElFinal/yoquelerlamucho.jpeg</div>
+                <img src="Recursos/ParaElFinal/yoquelerlamucho.jpeg" alt="Imagen Final Sin Punto" class="test-image"
+                     onload="markSuccess(this, 'imagenfinal-sinpunto')" 
+                     onerror="markError(this, 'imagenfinal-sinpunto')">
+                <div id="imagenfinal-sinpunto" class="status info">Cargando...</div>
+
+                <h3>Desde Raíz del Proyecto</h3>
+                <div class="path-info">./paginafeliznavidadXD/Recursos/ParaElFinal/yoquelerlamucho.jpeg</div>
+                <img src="./paginafeliznavidadXD/Recursos/ParaElFinal/yoquelerlamucho.jpeg" alt="Imagen Final Raíz" class="test-image"
+                     onload="markSuccess(this, 'imagenfinal-raiz')" 
+                     onerror="markError(this, 'imagenfinal-raiz')">
+                <div id="imagenfinal-raiz" class="status info">Cargando...</div>
+
+                <h3>Ruta Absoluta</h3>
+                <div class="path-info">/paginafeliznavidadXD/Recursos/ParaElFinal/yoquelerlamucho.jpeg</div>
+                <img src="/paginafeliznavidadXD/Recursos/ParaElFinal/yoquelerlamucho.jpeg" alt="Imagen Final Absoluta" class="test-image"
+                     onload="markSuccess(this, 'imagenfinal-absoluta')" 
+                     onerror="markError(this, 'imagenfinal-absoluta')">
+                <div id="imagenfinal-absoluta" class="status info">Cargando...</div>
+            </div>
+
+            <!-- Cuidar Pino Tests -->
+            <div class="test-section">
+                <h2>🌲 cuidaelpino.jpg</h2>
+                
+                <h3>Ruta Relativa Normal</h3>
+                <div class="path-info">./Recursos/EntradaAlPino/cuidaelpino.jpg</div>
+                <img src="./Recursos/EntradaAlPino/cuidaelpino.jpg" alt="Cuidar Pino Normal" class="test-image"
+                     onload="markSuccess(this, 'cuidarpino-normal')" 
+                     onerror="markError(this, 'cuidarpino-normal')">
+                <div id="cuidarpino-normal" class="status info">Cargando...</div>
+
+                <h3>Sin Punto</h3>
+                <div class="path-info">Recursos/EntradaAlPino/cuidaelpino.jpg</div>
+                <img src="Recursos/EntradaAlPino/cuidaelpino.jpg" alt="Cuidar Pino Sin Punto" class="test-image"
+                     onload="markSuccess(this, 'cuidarpino-sinpunto')" 
+                     onerror="markError(this, 'cuidarpino-sinpunto')">
+                <div id="cuidarpino-sinpunto" class="status info">Cargando...</div>
+
+                <h3>Desde Raíz del Proyecto</h3>
+                <div class="path-info">./paginafeliznavidadXD/Recursos/EntradaAlPino/cuidaelpino.jpg</div>
+                <img src="./paginafeliznavidadXD/Recursos/EntradaAlPino/cuidaelpino.jpg" alt="Cuidar Pino Raíz" class="test-image"
+                     onload="markSuccess(this, 'cuidarpino-raiz')" 
+                     onerror="markError(this, 'cuidarpino-raiz')">
+                <div id="cuidarpino-raiz" class="status info">Cargando...</div>
+
+                <h3>Ruta Absoluta</h3>
+                <div class="path-info">/paginafeliznavidadXD/Recursos/EntradaAlPino/cuidaelpino.jpg</div>
+                <img src="/paginafeliznavidadXD/Recursos/EntradaAlPino/cuidaelpino.jpg" alt="Cuidar Pino Absoluta" class="test-image"
+                     onload="markSuccess(this, 'cuidarpino-absoluta')" 
+                     onerror="markError(this, 'cuidarpino-absoluta')">
+                <div id="cuidarpino-absoluta" class="status info">Cargando...</div>
+            </div>
+        </div>
+
+        <div class="summary">
+            <h2>📊 Resumen de Resultados</h2>
+            <div id="resumen-resultados">Ejecutando pruebas...</div>
+            <div id="recomendaciones" style="margin-top: 15px;"></div>
+        </div>
+    </div>
+
+    <script>
+        // Mostrar información del entorno
+        document.getElementById('current-url').textContent = window.location.href;
+        document.getElementById('protocol').textContent = window.location.protocol;
+        document.getElementById('host').textContent = window.location.host || 'archivo local';
+        document.getElementById('directory').textContent = window.location.pathname.split('/').slice(0, -1).join('/');
+
+        let resultados = [];
+
+        function markSuccess(img, testId) {
+            img.classList.add('success');
+            const statusDiv = document.getElementById(testId);
+            statusDiv.textContent = '✅ Imagen cargada correctamente';
+            statusDiv.className = 'status success';
+            
+            resultados.push({
+                test: testId,
+                success: true,
+                path: img.src
+            });
+            
+            updateResumen();
+        }
+
+        function markError(img, testId) {
+            img.classList.add('error');
+            const statusDiv = document.getElementById(testId);
+            statusDiv.textContent = '❌ Error: No se pudo cargar la imagen';
+            statusDiv.className = 'status error';
+            
+            resultados.push({
+                test: testId,
+                success: false,
+                path: img.src
+            });
+            
+            updateResumen();
+        }
+
+        function updateResumen() {
+            const exitosos = resultados.filter(r => r.success);
+            const fallidos = resultados.filter(r => !r.success);
+            const total = resultados.length;
+            
+            const resumenDiv = document.getElementById('resumen-resultados');
+            const recomendacionesDiv = document.getElementById('recomendaciones');
+            
+            let html = `
+                <p><strong>Total de pruebas:</strong> ${total}</p>
+                <p><strong>✅ Exitosas:</strong> ${exitosos.length}</p>
+                <p><strong>❌ Fallidas:</strong> ${fallidos.length}</p>
+            `;
+            
+            if (exitosos.length > 0) {
+                html += '<h3>🎉 Rutas que funcionan:</h3><ul>';
+                exitosos.forEach(r => {
+                    const pathParts = r.path.split('/');
+                    const relevantPath = pathParts.slice(-4).join('/'); // Últimas 4 partes de la ruta
+                    html += `<li><code>${relevantPath}</code></li>`;
+                });
+                html += '</ul>';
+            }
+            
+            resumenDiv.innerHTML = html;
+            
+            // Recomendaciones
+            let recomendaciones = '';
+            if (exitosos.length === 0) {
+                recomendaciones = `
+                    <div class="error">
+                        <h3>⚠️ Problema Crítico</h3>
+                        <p>Ninguna ruta funciona. Posibles soluciones:</p>
+                        <ul>
+                            <li>Verifica que la carpeta "Recursos" esté en la ubicación correcta</li>
+                            <li>Asegúrate de que las imágenes existan en las carpetas</li>
+                            <li>Revisa los permisos de archivos</li>
+                            <li>Prueba servir el proyecto desde un servidor web local</li>
+                        </ul>
+                    </div>
+                `;
+            } else if (exitosos.some(r => r.test.includes('normal'))) {
+                recomendaciones = `
+                    <div class="success">
+                        <h3>✅ Recomendación</h3>
+                        <p>Las rutas relativas normales (./Recursos/) funcionan correctamente. 
+                        Tu proyecto debería funcionar bien cuando se comparta.</p>
+                    </div>
+                `;
+            } else if (exitosos.some(r => r.test.includes('raiz'))) {
+                recomendaciones = `
+                    <div class="info">
+                        <h3>💡 Recomendación</h3>
+                        <p>Las rutas desde la raíz del proyecto funcionan. Considera actualizar 
+                        tu código para usar rutas como: <code>./paginafeliznavidadXD/Recursos/</code></p>
+                    </div>
+                `;
+            } else if (exitosos.some(r => r.test.includes('absoluta'))) {
+                recomendaciones = `
+                    <div class="info">
+                        <h3>⚠️ Advertencia</h3>
+                        <p>Solo las rutas absolutas funcionan. Esto puede causar problemas al compartir 
+                        el proyecto. Considera reorganizar la estructura de carpetas.</p>
+                    </div>
+                `;
+            }
+            
+            recomendacionesDiv.innerHTML = recomendaciones;
+        }
+
+        // Ejecutar después de que todas las imágenes hayan tenido tiempo de cargar
+        setTimeout(() => {
+            if (resultados.length === 0) {
+                document.getElementById('resumen-resultados').innerHTML = 
+                    '<p class="error">⏳ Las imágenes están tardando en cargar. Verifica tu conexión o la ubicación de los archivos.</p>';
+            }
+        }, 5000);
+    </script>
+</body>
+</html>

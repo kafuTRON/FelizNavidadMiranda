@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test - ¡Feliz Navidad! 🎄</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="welcome-screen" class="screen active">
+        <div class="welcome-container">
+            <h1 class="welcome-title">🎄 ¡Hola! 🎄</h1>
+            <h2 class="welcome-question">¿Te gusta la Navidad?</h2>
+            <div class="button-container">
+                <button id="btn-yes" class="choice-button yes-button">Sí ✨</button>
+                <button id="btn-no" class="choice-button no-button">No 😔</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Test de recursos -->
+    <div style="position: fixed; top: 10px; right: 10px; background: rgba(0,0,0,0.8); color: white; padding: 10px; border-radius: 5px; font-size: 12px; z-index: 9999;">
+        <div>Test de recursos:</div>
+        <div id="resource-test"></div>
+    </div>
+
+    <script>
+        // Test básico de recursos
+        const resources = [
+            './Recursos/Principal/SuperPino.png',
+            './Recursos/Principal/fondoXD.webp',
+            './Recursos/EntradaAlPino/cuidaelpino.jpg',
+            './Recursos/Carta/CartaCerrada.jpeg',
+            './Recursos/ParaElFinal/yoquelerlamucho.jpeg',
+            './Recursos/Musica/001.mp3'
+        ];
+
+        const testDiv = document.getElementById('resource-test');
+        
+        resources.forEach(async (resource) => {
+            try {
+                const response = await fetch(resource, { method: 'HEAD' });
+                const status = response.ok ? '✅' : '❌';
+                testDiv.innerHTML += `<div>${status} ${resource.split('/').pop()}</div>`;
+            } catch (e) {
+                testDiv.innerHTML += `<div>❌ ${resource.split('/').pop()}</div>`;
+            }
+        });
+
+        // Botones básicos
+        document.getElementById('btn-yes').addEventListener('click', () => {
+            alert('¡Perfecto! Los recursos están funcionando correctamente.');
+        });
+
+        document.getElementById('btn-no').addEventListener('click', () => {
+            alert('Test de botón "No" funcionando.');
+        });
+    </script>
+</body>
+</html>

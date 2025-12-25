@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔧 Prueba Simple</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .test { margin: 20px 0; padding: 15px; border: 1px solid #ccc; }
+        img { max-width: 200px; margin: 10px; }
+        button { padding: 10px 20px; margin: 5px; }
+        .success { background: #d4edda; }
+        .error { background: #f8d7da; }
+    </style>
+</head>
+<body>
+    <h1>🔧 Prueba Simple de Funcionalidades</h1>
+    
+    <div class="test">
+        <h2>🌲 Imagen Cuidar el Pino</h2>
+        <img id="care-pine" src="./Recursos/EntradaAlPino/cuidaelpino.jpg" alt="Cuidar Pino">
+        <div id="care-pine-status">Cargando...</div>
+    </div>
+    
+    <div class="test">
+        <h2>🖼️ Imagen Final</h2>
+        <img id="final-image" src="./Recursos/ParaElFinal/yoquelerlamucho.jpeg" alt="Imagen Final">
+        <div id="final-image-status">Cargando...</div>
+    </div>
+    
+    <div class="test">
+        <h2>🎵 Música de Fondo</h2>
+        <audio id="background-music" controls>
+            <source src="./Recursos/Musica/001.mp3" type="audio/mpeg">
+        </audio>
+        <br>
+        <button onclick="testMusic()">Probar Música (15% volumen)</button>
+        <div id="music-status">Listo para probar</div>
+    </div>
+    
+    <div class="test">
+        <h2>🎄 Prueba de Pantalla Care Pine</h2>
+        <button onclick="testCarePineScreen()">Mostrar Pantalla Care Pine</button>
+        <div id="screen-status">Listo para probar</div>
+    </div>
+
+    <script>
+        // Configurar eventos de carga de imágenes
+        document.getElementById('care-pine').onload = function() {
+            document.getElementById('care-pine-status').textContent = '✅ Imagen cargada correctamente';
+            document.getElementById('care-pine-status').className = 'success';
+        };
+        
+        document.getElementById('care-pine').onerror = function() {
+            document.getElementById('care-pine-status').textContent = '❌ Error al cargar imagen';
+            document.getElementById('care-pine-status').className = 'error';
+        };
+        
+        document.getElementById('final-image').onload = function() {
+            document.getElementById('final-image-status').textContent = '✅ Imagen cargada correctamente';
+            document.getElementById('final-image-status').className = 'success';
+        };
+        
+        document.getElementById('final-image').onerror = function() {
+            document.getElementById('final-image-status').textContent = '❌ Error al cargar imagen';
+            document.getElementById('final-image-status').className = 'error';
+        };
+
+        function testMusic() {
+            const audio = document.getElementById('background-music');
+            const status = document.getElementById('music-status');
+            
+            audio.volume = 0.15; // 15% volumen
+            audio.loop = true;
+            
+            audio.play().then(() => {
+                status.textContent = '✅ Música reproduciendo al 15% de volumen';
+                status.className = 'success';
+                
+                // Parar después de 3 segundos para la prueba
+                setTimeout(() => {
+                    audio.pause();
+                    status.textContent = '✅ Música funcionó correctamente (pausada para prueba)';
+                }, 3000);
+            }).catch(error => {
+                status.textContent = '❌ Error: ' + error.message;
+                status.className = 'error';
+            });
+        }
+
+        function testCarePineScreen() {
+            const status = document.getElementById('screen-status');
+            
+            // Crear pantalla de prueba
+            const testScreen = document.createElement('div');
+            testScreen.id = 'test-care-pine-screen';
+            testScreen.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100vw;
+                height: 100vh;
+                background: linear-gradient(135deg, #2d5016 0%, #4a7c59 50%, #2d5016 100%);
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                z-index: 9999;
+            `;
+            
+            const img = document.createElement('img');
+            img.src = './Recursos/EntradaAlPino/cuidaelpino.jpg';
+            img.style.cssText = `
+                max-width: 80%;
+                max-height: 70vh;
+                border-radius: 20px;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+                margin-bottom: 2rem;
+            `;
+            
+            const message = document.createElement('div');
+            message.textContent = 'arbolico echo con bien mucho caliño todo pro';
+            message.style.cssText = `
+                font-size: 2.5rem;
+                font-weight: bold;
+                color: #fff;
+                text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.8);
+                background: rgba(0, 0, 0, 0.3);
+                padding: 1.5rem 3rem;
+                border-radius: 25px;
+                border: 3px solid #4a7c59;
+                text-align: center;
+            `;
+            
+            const closeBtn = document.createElement('button');
+            closeBtn.textContent = 'Cerrar Prueba';
+            closeBtn.style.cssText = `
+                margin-top: 2rem;
+                padding: 10px 20px;
+                font-size: 16px;
+                background: #fff;
+                border: none;
+                border-radius: 10px;
+                cursor: pointer;
+            `;
+            closeBtn.onclick = () => {
+                document.body.removeChild(testScreen);
+                status.textContent = '✅ Pantalla Care Pine funcionó correctamente';
+                status.className = 'success';
+            };
+            
+            testScreen.appendChild(img);
+            testScreen.appendChild(message);
+            testScreen.appendChild(closeBtn);
+            document.body.appendChild(testScreen);
+            
+            status.textContent = '🌲 Pantalla Care Pine mostrada - durará 3 segundos';
+            
+            // Auto-cerrar después de 3 segundos
+            setTimeout(() => {
+                if (document.body.contains(testScreen)) {
+                    document.body.removeChild(testScreen);
+                    status.textContent = '✅ Pantalla Care Pine se cerró automáticamente después de 3 segundos';
+                    status.className = 'success';
+                }
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

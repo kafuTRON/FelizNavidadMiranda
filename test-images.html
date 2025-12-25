@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test de Imágenes</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .test-image { margin: 10px; max-width: 200px; border: 2px solid #ccc; }
+        .test-section { margin-bottom: 30px; }
+        .error { color: red; }
+        .success { color: green; }
+    </style>
+</head>
+<body>
+    <h1>🧪 Test de Rutas de Imágenes</h1>
+    
+    <div class="test-section">
+        <h2>Imagen del Pino Principal</h2>
+        <img src="./Recursos/Principal/SuperPino.png" alt="Pino Principal" class="test-image" 
+             onload="this.nextElementSibling.innerHTML='✅ Carga correctamente'" 
+             onerror="this.nextElementSibling.innerHTML='❌ Error al cargar'">
+        <div class="status"></div>
+        <p><strong>Ruta:</strong> ./Recursos/Principal/SuperPino.png</p>
+    </div>
+
+    <div class="test-section">
+        <h2>Imagen de la Carta</h2>
+        <img src="./Recursos/Carta/CartaCerrada.jpeg" alt="Carta Cerrada" class="test-image"
+             onload="this.nextElementSibling.innerHTML='✅ Carga correctamente'" 
+             onerror="this.nextElementSibling.innerHTML='❌ Error al cargar'">
+        <div class="status"></div>
+        <p><strong>Ruta:</strong> ./Recursos/Carta/CartaCerrada.jpeg</p>
+    </div>
+
+    <div class="test-section">
+        <h2>Imagen de Fondo (CSS)</h2>
+        <div style="width: 200px; height: 100px; background-image: url('./Recursos/Principal/fondoXD.webp'); background-size: cover; border: 2px solid #ccc;"></div>
+        <p><strong>Ruta CSS:</strong> url('./Recursos/Principal/fondoXD.webp')</p>
+    </div>
+
+    <div class="test-section">
+        <h2>Regalos</h2>
+        <img src="./Recursos/Principal/RegaloCerrado.png" alt="Regalo Cerrado" class="test-image"
+             onload="this.nextElementSibling.innerHTML='✅ Carga correctamente'" 
+             onerror="this.nextElementSibling.innerHTML='❌ Error al cargar'">
+        <div class="status"></div>
+        <p><strong>Ruta:</strong> ./Recursos/Principal/RegaloCerrado.png</p>
+    </div>
+
+    <div class="test-section">
+        <h2>Instrucciones</h2>
+        <p>Si todas las imágenes muestran ✅, las rutas están funcionando correctamente.</p>
+        <p>Si alguna muestra ❌, hay un problema con esa ruta específica.</p>
+        <p><strong>Estructura requerida:</strong></p>
+        <pre>
+paginafeliznavidadXD/
+├── index.html
+├── test-images.html (este archivo)
+└── Recursos/
+    ├── Principal/
+    │   ├── SuperPino.png
+    │   ├── fondoXD.webp
+    │   └── RegaloCerrado.png
+    └── Carta/
+        └── CartaCerrada.jpeg
+        </pre>
+    </div>
+</body>
+</html>

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔍 Diagnóstico de Rutas</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            padding: 20px; 
+            background: #f5f5f5;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .test-image { 
+            margin: 10px; 
+            max-width: 150px; 
+            border: 2px solid #ccc; 
+            display: block;
+        }
+        .test-section { 
+            margin-bottom: 30px; 
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .error { color: red; font-weight: bold; }
+        .success { color: green; font-weight: bold; }
+        .info { color: blue; }
+        .status { 
+            padding: 10px; 
+            margin: 10px 0; 
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        .path-info {
+            background: #f0f0f0;
+            padding: 10px;
+            border-radius: 5px;
+            font-family: monospace;
+            margin: 5px 0;
+        }
+        h1 { color: #333; text-align: center; }
+        h2 { color: #666; border-bottom: 2px solid #eee; padding-bottom: 5px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔍 Diagnóstico Completo de Rutas</h1>
+        
+        <div class="test-section">
+            <h2>📍 Información del Sistema</h2>
+            <div class="path-info">
+                <strong>URL actual:</strong> <span id="current-url"></span><br>
+                <strong>Directorio base:</strong> <span id="base-dir"></span><br>
+                <strong>Navegador:</strong> <span id="browser-info"></span>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>🌲 SuperPino.png</h2>
+            <div class="path-info">Ruta: ./Recursos/Principal/SuperPino.png</div>
+            <img src="./Recursos/Principal/SuperPino.png" alt="SuperPino" class="test-image" 
+                 onload="showResult('pino-status', true, 'SuperPino cargó correctamente')" 
+                 onerror="showResult('pino-status', false, 'Error: No se pudo cargar SuperPino.png')">
+            <div id="pino-status" class="status"></div>
+        </div>
+
+        <div class="test-section">
+            <h2>💌 CartaCerrada.jpeg</h2>
+            <div class="path-info">Ruta: ./Recursos/Carta/CartaCerrada.jpeg</div>
+            <img src="./Recursos/Carta/CartaCerrada.jpeg" alt="Carta" class="test-image"
+                 onload="showResult('carta-status', true, 'Carta cargó correctamente')" 
+                 onerror="showResult('carta-status', false, 'Error: No se pudo cargar CartaCerrada.jpeg')">
+            <div id="carta-status" class="status"></div>
+        </div>
+
+        <div class="test-section">
+            <h2>🎁 Regalos</h2>
+            <div class="path-info">Ruta: ./Recursos/Principal/RegaloCerrado.png</div>
+            <img src="./Recursos/Principal/RegaloCerrado.png" alt="Regalo" class="test-image"
+                 onload="showResult('regalo-status', true, 'Regalo cargó correctamente')" 
+                 onerror="showResult('regalo-status', false, 'Error: No se pudo cargar RegaloCerrado.png')">
+            <div id="regalo-status" class="status"></div>
+        </div>
+
+        <div class="test-section">
+            <h2>🖼️ Fondo CSS</h2>
+            <div class="path-info">Ruta CSS: url('./Recursos/Principal/fondoXD.webp')</div>
+            <div id="fondo-test" style="width: 200px; height: 100px; background-image: url('./Recursos/Principal/fondoXD.webp'); background-size: cover; border: 2px solid #ccc; margin: 10px 0;"></div>
+            <div id="fondo-status" class="status">Verificando fondo...</div>
+        </div>
+
+        <div class="test-section">
+            <h2>🔧 Pruebas Alternativas</h2>
+            <p>Si las imágenes de arriba no cargan, prueba estas rutas alternativas:</p>
+            
+            <h3>Sin ./</h3>
+            <div class="path-info">Ruta: Recursos/Principal/SuperPino.png</div>
+            <img src="Recursos/Principal/SuperPino.png" alt="SuperPino Alt" class="test-image"
+                 onload="showResult('alt1-status', true, 'Ruta sin ./ funciona')" 
+                 onerror="showResult('alt1-status', false, 'Ruta sin ./ no funciona')">
+            <div id="alt1-status" class="status"></div>
+
+            <h3>Con ../</h3>
+            <div class="path-info">Ruta: ../paginafeliznavidadXD/Recursos/Principal/SuperPino.png</div>
+            <img src="../paginafeliznavidadXD/Recursos/Principal/SuperPino.png" alt="SuperPino Alt2" class="test-image"
+                 onload="showResult('alt2-status', true, 'Ruta con ../ funciona')" 
+                 onerror="showResult('alt2-status', false, 'Ruta con ../ no funciona')">
+            <div id="alt2-status" class="status"></div>
+
+            <h3>Carpeta con mayúsculas</h3>
+            <div class="path-info">Ruta: ../PaginaFelizNaviadadXD/Recursos/Principal/SuperPino.png</div>
+            <img src="../PaginaFelizNaviadadXD/Recursos/Principal/SuperPino.png" alt="SuperPino Alt3" class="test-image"
+                 onload="showResult('alt3-status', true, 'Ruta con carpeta mayúsculas funciona')" 
+                 onerror="showResult('alt3-status', false, 'Ruta con carpeta mayúsculas no funciona')">
+            <div id="alt3-status" class="status"></div>
+
+            <h3>Ruta absoluta desde raíz</h3>
+            <div class="path-info">Ruta: /paginafeliznavidadXD/Recursos/Principal/SuperPino.png</div>
+            <img src="/paginafeliznavidadXD/Recursos/Principal/SuperPino.png" alt="SuperPino Alt4" class="test-image"
+                 onload="showResult('alt4-status', true, 'Ruta absoluta funciona')" 
+                 onerror="showResult('alt4-status', false, 'Ruta absoluta no funciona')">
+            <div id="alt4-status" class="status"></div>
+        </div>
+
+        <div class="test-section">
+            <h2>📋 Resumen</h2>
+            <div id="resumen"></div>
+        </div>
+    </div>
+
+    <script>
+        // Mostrar información del sistema
+        document.getElementById('current-url').textContent = window.location.href;
+        document.getElementById('base-dir').textContent = window.location.pathname.split('/').slice(0, -1).join('/');
+        document.getElementById('browser-info').textContent = navigator.userAgent.split(' ').slice(-2).join(' ');
+
+        let resultados = [];
+
+        function showResult(elementId, success, message) {
+            const element = document.getElementById(elementId);
+            element.textContent = (success ? '✅ ' : '❌ ') + message;
+            element.className = 'status ' + (success ? 'success' : 'error');
+            
+            resultados.push({
+                test: elementId,
+                success: success,
+                message: message
+            });
+            
+            updateResumen();
+        }
+
+        function updateResumen() {
+            const resumenDiv = document.getElementById('resumen');
+            const exitosos = resultados.filter(r => r.success).length;
+            const total = resultados.length;
+            
+            let html = `<p><strong>Resultados:</strong> ${exitosos}/${total} pruebas exitosas</p>`;
+            
+            if (exitosos === total && total >= 3) {
+                html += '<p class="success">🎉 ¡Todas las rutas funcionan correctamente!</p>';
+            } else if (exitosos === 0) {
+                html += '<p class="error">⚠️ Ninguna ruta funciona. Verifica que la carpeta "Recursos" esté en el lugar correcto.</p>';
+            } else {
+                html += '<p class="info">⚠️ Algunas rutas no funcionan. Revisa la estructura de carpetas.</p>';
+            }
+            
+            resumenDiv.innerHTML = html;
+        }
+
+        // Verificar fondo después de un momento
+        setTimeout(() => {
+            const fondoDiv = document.getElementById('fondo-test');
+            const computedStyle = window.getComputedStyle(fondoDiv);
+            const backgroundImage = computedStyle.backgroundImage;
+            
+            if (backgroundImage && backgroundImage !== 'none') {
+                showResult('fondo-status', true, 'Fondo CSS cargó correctamente');
+            } else {
+                showResult('fondo-status', false, 'Error: Fondo CSS no cargó');
+            }
+        }, 1000);
+    </script>
+</body>
+</html>

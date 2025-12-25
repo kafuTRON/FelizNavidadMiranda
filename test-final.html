@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Final - Feliz Navidad</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background: #0a1a2a;
+            color: white;
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #333;
+            border-radius: 10px;
+        }
+        .test-image {
+            max-width: 200px;
+            max-height: 200px;
+            border: 2px solid #666;
+            margin: 10px;
+        }
+        .test-audio {
+            margin: 10px 0;
+        }
+        .status {
+            padding: 5px 10px;
+            border-radius: 5px;
+            margin: 5px 0;
+        }
+        .success { background: #4CAF50; }
+        .error { background: #f44336; }
+    </style>
+</head>
+<body>
+    <h1>🎄 Test Final - Recursos</h1>
+    
+    <div class="test-section">
+        <h2>🎵 Música de Fondo</h2>
+        <audio id="test-music" controls>
+            <source src="./Recursos/Musica/001.mp3" type="audio/mpeg">
+        </audio>
+        <button onclick="testMusic()">Test Música al 15%</button>
+        <div id="music-status"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>🌲 Imagen Cuidar el Pino</h2>
+        <img id="test-care-pine" class="test-image" src="./Recursos/EntradaAlPino/cuidaelpino.jpg" alt="Cuidar el pino">
+        <div id="care-pine-status"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>💌 Imagen Final de la Carta</h2>
+        <img id="test-final-image" class="test-image" src="./Recursos/ParaElFinal/yoquelerlamucho.jpeg" alt="Imagen final">
+        <div id="final-image-status"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>🎁 Otras Imágenes Importantes</h2>
+        <img class="test-image" src="./Recursos/Principal/SuperPino.png" alt="SuperPino">
+        <img class="test-image" src="./Recursos/Carta/CartaCerrada.jpeg" alt="Carta Cerrada">
+        <img class="test-image" src="./Recursos/Carta/CartaAbierta.png" alt="Carta Abierta">
+    </div>
+
+    <script>
+        function testMusic() {
+            const music = document.getElementById('test-music');
+            const status = document.getElementById('music-status');
+            
+            music.volume = 0.15;
+            music.loop = true;
+            
+            music.play().then(() => {
+                status.innerHTML = '<div class="status success">✅ Música reproduciendo al 15% de volumen</div>';
+            }).catch(error => {
+                status.innerHTML = '<div class="status error">❌ Error: ' + error.message + '</div>';
+            });
+        }
+        
+        // Verificar carga de imágenes
+        window.addEventListener('load', () => {
+            const carePineImg = document.getElementById('test-care-pine');
+            const finalImg = document.getElementById('test-final-image');
+            
+            if (carePineImg.complete && carePineImg.naturalHeight !== 0) {
+                document.getElementById('care-pine-status').innerHTML = '<div class="status success">✅ Imagen cargada correctamente</div>';
+            } else {
+                document.getElementById('care-pine-status').innerHTML = '<div class="status error">❌ Error cargando imagen</div>';
+            }
+            
+            if (finalImg.complete && finalImg.naturalHeight !== 0) {
+                document.getElementById('final-image-status').innerHTML = '<div class="status success">✅ Imagen cargada correctamente</div>';
+            } else {
+                document.getElementById('final-image-status').innerHTML = '<div class="status error">❌ Error cargando imagen</div>';
+            }
+        });
+        
+        // Verificar errores de carga
+        document.querySelectorAll('img').forEach(img => {
+            img.onerror = function() {
+                console.error('Error cargando imagen:', this.src);
+            };
+        });
+        
+        document.querySelectorAll('audio').forEach(audio => {
+            audio.onerror = function() {
+                console.error('Error cargando audio:', this.src);
+            };
+        });
+    </script>
+</body>
+</html>

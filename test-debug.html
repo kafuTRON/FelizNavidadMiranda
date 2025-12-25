@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔧 Debug - Prueba de Funcionalidades</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            padding: 20px; 
+            background: #f0f8ff;
+            line-height: 1.6;
+        }
+        .test-section { 
+            margin-bottom: 30px; 
+            padding: 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            background: #fafafa;
+        }
+        .success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; padding: 10px; margin: 5px 0; }
+        .error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; padding: 10px; margin: 5px 0; }
+        .info { background: #d1ecf1; color: #0c5460; border: 1px solid #bee5eb; padding: 10px; margin: 5px 0; }
+        button { padding: 10px 20px; margin: 5px; font-size: 16px; cursor: pointer; }
+        img { max-width: 200px; margin: 10px; border: 2px solid #ccc; }
+        audio { width: 100%; margin: 10px 0; }
+    </style>
+</head>
+<body>
+    <h1>🔧 Debug - Prueba de Funcionalidades Nuevas</h1>
+    
+    <div class="test-section">
+        <h2>🌲 Prueba de Imagen "Cuidar el Pino"</h2>
+        <div id="care-pine-result" class="info">Probando rutas...</div>
+        
+        <h3>Rutas a probar:</h3>
+        <div>1. ./Recursos/EntradaAlPino/cuidaelpino.jpg</div>
+        <img id="care-pine-1" src="./Recursos/EntradaAlPino/cuidaelpino.jpg" alt="Cuidar Pino 1" 
+             onload="reportSuccess('care-pine-1', 'Ruta 1 funciona')" 
+             onerror="reportError('care-pine-1', 'Ruta 1 falla')">
+        
+        <div>2. Recursos/EntradaAlPino/cuidaelpino.jpg</div>
+        <img id="care-pine-2" src="Recursos/EntradaAlPino/cuidaelpino.jpg" alt="Cuidar Pino 2"
+             onload="reportSuccess('care-pine-2', 'Ruta 2 funciona')" 
+             onerror="reportError('care-pine-2', 'Ruta 2 falla')">
+        
+        <div>3. ./paginafeliznavidadXD/Recursos/EntradaAlPino/cuidaelpino.jpg</div>
+        <img id="care-pine-3" src="./paginafeliznavidadXD/Recursos/EntradaAlPino/cuidaelpino.jpg" alt="Cuidar Pino 3"
+             onload="reportSuccess('care-pine-3', 'Ruta 3 funciona')" 
+             onerror="reportError('care-pine-3', 'Ruta 3 falla')">
+    </div>
+
+    <div class="test-section">
+        <h2>🖼️ Prueba de Imagen Final</h2>
+        <div id="final-image-result" class="info">Probando rutas...</div>
+        
+        <h3>Rutas a probar:</h3>
+        <div>1. ./Recursos/ParaElFinal/yoquelerlamucho.jpeg</div>
+        <img id="final-1" src="./Recursos/ParaElFinal/yoquelerlamucho.jpeg" alt="Final 1"
+             onload="reportSuccess('final-1', 'Ruta 1 funciona')" 
+             onerror="reportError('final-1', 'Ruta 1 falla')">
+        
+        <div>2. Recursos/ParaElFinal/yoquelerlamucho.jpeg</div>
+        <img id="final-2" src="Recursos/ParaElFinal/yoquelerlamucho.jpeg" alt="Final 2"
+             onload="reportSuccess('final-2', 'Ruta 2 funciona')" 
+             onerror="reportError('final-2', 'Ruta 2 falla')">
+        
+        <div>3. ./paginafeliznavidadXD/Recursos/ParaElFinal/yoquelerlamucho.jpeg</div>
+        <img id="final-3" src="./paginafeliznavidadXD/Recursos/ParaElFinal/yoquelerlamucho.jpeg" alt="Final 3"
+             onload="reportSuccess('final-3', 'Ruta 3 funciona')" 
+             onerror="reportError('final-3', 'Ruta 3 falla')">
+    </div>
+
+    <div class="test-section">
+        <h2>🎵 Prueba de Música de Fondo</h2>
+        <div id="music-result" class="info">Probando rutas de audio...</div>
+        
+        <h3>Rutas a probar:</h3>
+        <div>1. ./Recursos/Musica/001.mp3</div>
+        <audio id="music-1" controls>
+            <source src="./Recursos/Musica/001.mp3" type="audio/mpeg">
+        </audio>
+        <button onclick="testAudio('music-1', 'Ruta 1')">Probar Audio 1</button>
+        
+        <div>2. Recursos/Musica/001.mp3</div>
+        <audio id="music-2" controls>
+            <source src="Recursos/Musica/001.mp3" type="audio/mpeg">
+        </audio>
+        <button onclick="testAudio('music-2', 'Ruta 2')">Probar Audio 2</button>
+        
+        <div>3. ./paginafeliznavidadXD/Recursos/Musica/001.mp3</div>
+        <audio id="music-3" controls>
+            <source src="./paginafeliznavidadXD/Recursos/Musica/001.mp3" type="audio/mpeg">
+        </audio>
+        <button onclick="testAudio('music-3', 'Ruta 3')">Probar Audio 3</button>
+    </div>
+
+    <div class="test-section">
+        <h2>🔧 Prueba de JavaScript</h2>
+        <div id="js-result" class="info">Verificando funciones...</div>
+        <button onclick="testJavaScript()">Probar Funciones JS</button>
+        <div id="js-output"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>📋 Resumen de Resultados</h2>
+        <div id="summary"></div>
+    </div>
+
+    <script>
+        let results = [];
+
+        function reportSuccess(id, message) {
+            const element = document.getElementById(id);
+            if (element) {
+                element.style.border = '3px solid green';
+            }
+            results.push({ test: id, success: true, message: message });
+            updateSummary();
+            console.log(`✅ ${message}`);
+        }
+
+        function reportError(id, message) {
+            const element = document.getElementById(id);
+            if (element) {
+                element.style.border = '3px solid red';
+            }
+            results.push({ test: id, success: false, message: message });
+            updateSummary();
+            console.log(`❌ ${message}`);
+        }
+
+        function testAudio(audioId, routeName) {
+            const audio = document.getElementById(audioId);
+            if (audio) {
+                audio.volume = 0.15; // 15% volumen
+                audio.play().then(() => {
+                    reportSuccess(audioId, `${routeName} - Audio funciona`);
+                    setTimeout(() => audio.pause(), 2000); // Parar después de 2 segundos
+                }).catch(error => {
+                    reportError(audioId, `${routeName} - Audio falla: ${error.message}`);
+                });
+            }
+        }
+
+        function testJavaScript() {
+            const output = document.getElementById('js-output');
+            let jsResults = [];
+
+            // Probar si CONFIG existe
+            if (typeof CONFIG !== 'undefined') {
+                jsResults.push('✅ CONFIG existe');
+            } else {
+                jsResults.push('❌ CONFIG no existe');
+            }
+
+            // Probar si MediaManager existe
+            if (typeof MediaManager !== 'undefined') {
+                jsResults.push('✅ MediaManager existe');
+            } else {
+                jsResults.push('❌ MediaManager no existe');
+            }
+
+            // Probar si StateManager existe
+            if (typeof StateManager !== 'undefined') {
+                jsResults.push('✅ StateManager existe');
+            } else {
+                jsResults.push('❌ StateManager no existe');
+            }
+
+            // Probar si UIController existe
+            if (typeof UIController !== 'undefined') {
+                jsResults.push('✅ UIController existe');
+            } else {
+                jsResults.push('❌ UIController no existe');
+            }
+
+            output.innerHTML = jsResults.join('<br>');
+            
+            if (jsResults.filter(r => r.includes('✅')).length === jsResults.length) {
+                document.getElementById('js-result').className = 'success';
+                document.getElementById('js-result').textContent = 'Todas las funciones JS están disponibles';
+            } else {
+                document.getElementById('js-result').className = 'error';
+                document.getElementById('js-result').textContent = 'Faltan algunas funciones JS';
+            }
+        }
+
+        function updateSummary() {
+            const summary = document.getElementById('summary');
+            const successful = results.filter(r => r.success).length;
+            const total = results.length;
+            
+            let html = `<h3>Resultados: ${successful}/${total} pruebas exitosas</h3>`;
+            
+            results.forEach(result => {
+                const icon = result.success ? '✅' : '❌';
+                html += `<div>${icon} ${result.message}</div>`;
+            });
+            
+            summary.innerHTML = html;
+        }
+
+        // Ejecutar prueba de JavaScript al cargar
+        setTimeout(testJavaScript, 1000);
+    </script>
+</body>
+</html>

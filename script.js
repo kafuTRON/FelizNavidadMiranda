@@ -13,7 +13,10 @@ const CONFIG = {
         MAIN_PINE: './Recursos/Principal/SuperPino.png',
         BACKGROUND: './Recursos/Principal/fondoXD.webp',
         CARE_PINE: './Recursos/EntradaAlPino/cuidaelpino.jpg',
-        LETTER: './Recursos/Carta/CartaCerrada.jpeg'
+        LETTER: './Recursos/Carta/CartaCerrada.jpeg',
+        LETTER_OPEN: './Recursos/Carta/CartaAbierta.png',
+        FINAL_IMAGE: './Recursos/ParaElFinal/yoquelerlamucho.jpeg',
+        BACKGROUND_MUSIC: './Recursos/Musica/001.mp3'
     },
     GIFT_MESSAGES: {
         '1.jpg': 'rico tamalito ñom ñom',
@@ -38,7 +41,12 @@ const CONFIG = {
     TIMERS: {
         GIFT_AUTO_CLOSE: 10000, // 10 segundos
         IMAGE_TRANSITION: 3000,  // 3 segundos entre imágenes negativas
-        VIDEO_CHECK_INTERVAL: 100 // Verificar estado del video cada 100ms
+        VIDEO_CHECK_INTERVAL: 100, // Verificar estado del video cada 100ms
+        CARE_PINE_DISPLAY: 3000  // 3 segundos para mostrar imagen de cuidar el pino
+    },
+    AUDIO: {
+        BACKGROUND_VOLUME: 0.15, // 15% de volumen para música de fondo
+        EFFECTS_VOLUME: 0.7      // 70% de volumen para efectos
     }
 };
 
@@ -68,12 +76,20 @@ class StateManager {
         });
 
         // Mostrar pantalla actual
-        const currentScreen = document.getElementById(`${this.currentState}-screen`);
+        let screenId = `${this.currentState}-screen`;
+        
+        // Mapear estados especiales
+        if (this.currentState === 'care-pine') {
+            screenId = 'care-pine-screen';
+        }
+        
+        const currentScreen = document.getElementById(screenId);
         if (currentScreen) {
             currentScreen.classList.add('active');
-            console.log(`✅ Pantalla ${this.currentState} activada`);
+            console.log(`✅ Pantalla ${screenId} activada`);
         } else {
-            console.error(`❌ No se encontró la pantalla: ${this.currentState}-screen`);
+            console.error(`❌ No se encontró la pantalla: ${screenId}`);
+            console.log('Pantallas disponibles:', Array.from(document.querySelectorAll('.screen')).map(s => s.id));
         }
     }
 
@@ -211,9 +227,10 @@ class MediaManager {
         return basePath + randomFile;
     }
 
-    static playAudio(audioElement, loop = false) {
+    static playAudio(audioElement, loop = false, volume = 1.0) {
         if (audioElement) {
             audioElement.loop = loop;
+            audioElement.volume = volume;
             audioElement.play().catch(e => console.log('Error reproduciendo audio:', e));
         }
     }
@@ -223,6 +240,45 @@ class MediaManager {
             audioElement.pause();
             audioElement.currentTime = 0;
         }
+    }
+
+    static startBackgroundMusic() {
+        const backgroundMusic = document.getElementById('background-music');
+        if (backgroundMusic) {
+            backgroundMusic.src = './Recursos/Musica/001.mp3';
+            backgroundMusic.volume = 0.15;
+            backgroundMusic.loop = true;
+            
+            console.log('🎵 Configurando música de fondo...');
+            
+            // Función para iniciar música
+            const playMusic = () => {
+                backgroundMusic.play().then(() => {
+                    console.log('🎵 Música de fondo iniciada al 15% de volumen');
+                }).catch(error => {
+                    console.log('🎵 Error reproduciendo música:', error);
+                });
+            };
+            
+            // Intentar reproducir inmediatamente
+            playMusic();
+            
+            // Si falla, agregar listener para el primer click
+            const startMusicOnClick = () => {
+                playMusic();
+                document.removeEventListener('click', startMusicOnClick);
+                document.removeEventListener('touchstart', startMusicOnClick);
+            };
+            
+            document.addEventListener('click', startMusicOnClick);
+            document.addEventListener('touchstart', startMusicOnClick);
+        }
+    }
+
+    static stopBackgroundMusic() {
+        const backgroundMusic = document.getElementById('background-music');
+        this.stopAudio(backgroundMusic);
+        console.log('🎵 Música de fondo detenida');
     }
 }
 
@@ -273,8 +329,10 @@ class UIController {
 
     playExplosionEffect() {
         const explosionAudio = document.getElementById('explosion-audio');
-        // Aquí se reproduciría el GIF de explosión y el audio
-        MediaManager.playAudio(explosionAudio);
+        if (explosionAudio) {
+            explosionAudio.src = './Recursos/Explosion/ExplosionDeltaruneFX.mp3';
+            MediaManager.playAudio(explosionAudio, false, CONFIG.AUDIO.EFFECTS_VOLUME);
+        }
     }
 
     async showEntrySequence() {
@@ -294,14 +352,39 @@ class UIController {
             entryVideo.style.display = 'block';
             entryVideo.play();
 
-            // Cuando termine el video, ir directamente a la pantalla principal
+            // Cuando termine el video, mostrar imagen de cuidar el pino
             entryVideo.addEventListener('ended', () => {
                 entryVideo.style.display = 'none';
-                console.log('Video terminado, yendo directamente a pantalla principal');
-                this.stateManager.setState('main');
-                this.initializeMainScreen();
+                console.log('Video terminado, mostrando imagen de cuidar el pino');
+                this.showCarePineScreen();
             });
         }, 2000);
+    }
+
+    showCarePineScreen() {
+        // Cambiar a la pantalla de cuidar el pino
+        this.stateManager.setState('care-pine');
+        
+        // Configurar la imagen directamente
+        const carePineImage = document.getElementById('care-pine-image');
+        if (carePineImage) {
+            carePineImage.src = './Recursos/EntradaAlPino/cuidaelpino.jpg';
+            console.log('🌲 Imagen de cuidar el pino configurada');
+        } else {
+            console.error('❌ No se encontró el elemento care-pine-image');
+        }
+        
+        console.log('🌲 Mostrando imagen de cuidar el pino por 3 segundos');
+        
+        // Después de 3 segundos, ir a la pantalla principal
+        setTimeout(() => {
+            console.log('Tiempo terminado, yendo a pantalla principal');
+            this.stateManager.setState('main');
+            this.initializeMainScreen();
+            
+            // Iniciar música de fondo cuando llegamos a la pantalla principal
+            MediaManager.startBackgroundMusic();
+        }, CONFIG.TIMERS.CARE_PINE_DISPLAY);
     }
 
     initializeMainScreen() {
@@ -396,13 +479,22 @@ class UIController {
     showLetter() {
         const letterContainer = document.getElementById('letter-container');
         const letter = document.getElementById('letter');
+        const letterFinalImg = document.getElementById('letter-final-img');
+        
+        // Configurar la imagen final en la carta directamente
+        letterFinalImg.src = './Recursos/ParaElFinal/yoquelerlamucho.jpeg';
+        console.log('💌 Imagen final configurada en la carta');
         
         letterContainer.classList.remove('hidden');
         
-        // Event listener para abrir la carta
-        letter.addEventListener('click', () => {
+        // Event listener para abrir la carta (solo una vez)
+        letter.removeEventListener('click', this.letterClickHandler);
+        this.letterClickHandler = () => {
             this.stateManager.setState('letter');
-        });
+        };
+        letter.addEventListener('click', this.letterClickHandler);
+        
+        console.log('💌 Carta mostrada con imagen final');
     }
 
     showNegativeModal() {
@@ -489,7 +581,10 @@ class UIController {
         // Reproducir audio en bucle
         const audio = document.getElementById('negative-audio');
         audio.src = './Recursos/ParaLaDesicionNegativa/9.mp3';
-        MediaManager.playAudio(audio, true);
+        MediaManager.playAudio(audio, true, CONFIG.AUDIO.EFFECTS_VOLUME);
+        
+        // Detener música de fondo
+        MediaManager.stopBackgroundMusic();
         
         // Bloquear todas las interacciones
         this.stateManager.blockInteractions();
@@ -638,6 +733,8 @@ class ChristmasApp {
 
 // ===== INICIALIZACIÓN CUANDO EL DOM ESTÉ LISTO =====
 document.addEventListener('DOMContentLoaded', () => {
+    console.log('🎄 DOM cargado - Inicializando Página Feliz Navidad 🎄');
+    
     // Crear instancia de la aplicación
     window.christmasApp = new ChristmasApp();
 });
