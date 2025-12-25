@@ -4,16 +4,16 @@
 // ===== CONFIGURACIÓN GLOBAL =====
 const CONFIG = {
     RESOURCES: {
-        ENTRY_IMAGES: '../PaginaFelizNaviadadXD/Recursos/EntradaAlPino/Imagenes/',
-        ENTRY_VIDEOS: '../PaginaFelizNaviadadXD/Recursos/EntradaAlPino/Videos/',
-        GIFTS: '../PaginaFelizNaviadadXD/Recursos/Regalos/',
-        EXPLOSION: '../PaginaFelizNaviadadXD/Recursos/Explosion/',
-        CHRISTMAS_VIDEOS: '../PaginaFelizNaviadadXD/Recursos/VideosNavideños/',
-        NEGATIVE_IMAGES: '../PaginaFelizNaviadadXD/Recursos/ParaLaDesicionNegativa/',
-        MAIN_PINE: '../PaginaFelizNaviadadXD/Recursos/Principal/SuperPino.png',
-        BACKGROUND: '../PaginaFelizNaviadadXD/Recursos/Principal/fondoXD.webp',
-        CARE_PINE: '../PaginaFelizNaviadadXD/Recursos/EntradaAlPino/cuidaelpino.jpg',
-        LETTER: '../PaginaFelizNaviadadXD/Recursos/Carta/CartaCerrada.jpeg'
+        ENTRY_IMAGES: './Recursos/EntradaAlPino/Imagenes/',
+        ENTRY_VIDEOS: './Recursos/EntradaAlPino/Videos/',
+        GIFTS: './Recursos/Regalos/',
+        EXPLOSION: './Recursos/Explosion/',
+        CHRISTMAS_VIDEOS: './Recursos/VideosNavideños/',
+        NEGATIVE_IMAGES: './Recursos/ParaLaDesicionNegativa/',
+        MAIN_PINE: './Recursos/Principal/SuperPino.png',
+        BACKGROUND: './Recursos/Principal/fondoXD.webp',
+        CARE_PINE: './Recursos/EntradaAlPino/cuidaelpino.jpg',
+        LETTER: './Recursos/Carta/CartaCerrada.jpeg'
     },
     GIFT_MESSAGES: {
         '1.jpg': 'rico tamalito ñom ñom',
@@ -161,8 +161,8 @@ class MediaManager {
     static async loadRandomImage(basePath, fallbackSrc = '') {
         // Lista de imágenes disponibles según la carpeta
         const imageFiles = {
-            '../PaginaFelizNaviadadXD/Recursos/EntradaAlPino/Imagenes/': ['1.jpg', '2.jpg', '3.jpg', '4.jpg', '5.jpg', '6.jpg', '7.jpg', '8.jpg'],
-            '../PaginaFelizNaviadadXD/Recursos/Regalos/': ['1.jpg', '2.webp', '3.webp', '4.webp', '5.jpg', '6.webp', '7.webp']
+            './Recursos/EntradaAlPino/Imagenes/': ['1.jpg', '2.jpg', '3.jpg', '4.jpg', '5.jpg', '6.jpg', '7.jpg', '8.jpg'],
+            './Recursos/Regalos/': ['1.jpg', '2.webp', '3.webp', '4.webp', '5.jpg', '6.webp', '7.webp']
         };
 
         const files = imageFiles[basePath] || ['imagen1.jpg'];
@@ -202,8 +202,8 @@ class MediaManager {
     static async loadRandomVideo(basePath) {
         // Lista de videos disponibles según la carpeta
         const videoFiles = {
-            '../PaginaFelizNaviadadXD/Recursos/EntradaAlPino/Videos/': ['1.mp4', '2.mp4'],
-            '../PaginaFelizNaviadadXD/Recursos/VideosNavideños/': ['FelizNavidad1.mp4', 'FelizNavidad2.mp4', 'FelizNavidad3.mp4', 'FelizNavidad4.mp4', 'FelizNavidad5.mp4', 'FelizNavidad6.mp4', 'FelizNavidad7.mp4', 'FelizNavidad8.mp4']
+            './Recursos/EntradaAlPino/Videos/': ['1.mp4', '2.mp4'],
+            './Recursos/VideosNavideños/': ['FelizNavidad1.mp4', 'FelizNavidad2.mp4', 'FelizNavidad3.mp4', 'FelizNavidad4.mp4', 'FelizNavidad5.mp4', 'FelizNavidad6.mp4', 'FelizNavidad7.mp4', 'FelizNavidad8.mp4']
         };
 
         const files = videoFiles[basePath] || ['video1.mp4'];
@@ -323,7 +323,7 @@ class UIController {
         positions.forEach((pos, index) => {
             const gift = document.createElement('img');
             gift.className = 'gift';
-            gift.src = '../PaginaFelizNaviadadXD/Recursos/Principal/RegaloCerrado.png';
+            gift.src = './Recursos/Principal/RegaloCerrado.png';
             gift.style.left = pos.x + 'px';
             gift.style.top = pos.y + 'px';
             gift.dataset.giftIndex = index;
@@ -331,13 +331,13 @@ class UIController {
             // Event listeners para hover
             gift.addEventListener('mouseenter', () => {
                 if (!this.stateManager.openedGifts.has(index)) {
-                    gift.src = '../PaginaFelizNaviadadXD/Recursos/Principal/RegaloAbierto.png';
+                    gift.src = './Recursos/Principal/RegaloAbierto.png';
                 }
             });
 
             gift.addEventListener('mouseleave', () => {
                 if (!this.stateManager.openedGifts.has(index)) {
-                    gift.src = '../PaginaFelizNaviadadXD/Recursos/Principal/RegaloCerrado.png';
+                    gift.src = './Recursos/Principal/RegaloCerrado.png';
                 }
             });
 
@@ -422,7 +422,7 @@ class UIController {
 
         // Configurar la imagen según el índice
         const imageExtensions = ['jpg', 'jpg', 'jpeg', 'jpg', 'jpeg', 'jpg', 'jpg', 'jpeg', 'gif'];
-        const imagePath = `../PaginaFelizNaviadadXD/Recursos/ParaLaDesicionNegativa/${index + 1}.${imageExtensions[index]}`;
+        const imagePath = `./Recursos/ParaLaDesicionNegativa/${index + 1}.${imageExtensions[index]}`;
         
         image.src = imagePath;
         message.textContent = CONFIG.NEGATIVE_MESSAGES[index];
@@ -461,7 +461,7 @@ class UIController {
 
         // Agregar GIF
         const gif = document.createElement('img');
-        gif.src = '../PaginaFelizNaviadadXD/Recursos/ParaLaDesicionNegativa/9.gif';
+        gif.src = './Recursos/ParaLaDesicionNegativa/9.gif';
         gif.style.cssText = `
             max-width: 100%;
             max-height: 70%;
@@ -488,7 +488,7 @@ class UIController {
 
         // Reproducir audio en bucle
         const audio = document.getElementById('negative-audio');
-        audio.src = '../PaginaFelizNaviadadXD/Recursos/ParaLaDesicionNegativa/9.mp3';
+        audio.src = './Recursos/ParaLaDesicionNegativa/9.mp3';
         MediaManager.playAudio(audio, true);
         
         // Bloquear todas las interacciones

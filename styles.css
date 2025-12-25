@@ -207,7 +207,7 @@ body {
 
 /* ===== PANTALLA PRINCIPAL DEL PINO ===== */
 #main-screen {
-    background-image: url('../PaginaFelizNaviadadXD/Recursos/Principal/fondoXD.webp');
+    background-image: url('./Recursos/Principal/fondoXD.webp');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
