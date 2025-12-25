@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug Simple</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            margin: 20px; 
+            background: #0a1a2a; 
+            color: white; 
+        }
+        button { 
+            padding: 10px 20px; 
+            margin: 10px; 
+            font-size: 16px; 
+            cursor: pointer; 
+        }
+        .test-area { 
+            border: 1px solid #333; 
+            padding: 20px; 
+            margin: 20px 0; 
+            border-radius: 10px; 
+        }
+        img { 
+            max-width: 300px; 
+            max-height: 300px; 
+            border: 2px solid #666; 
+            margin: 10px; 
+        }
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+    <h1>🎄 Debug Simple - Funcionalidades</h1>
+    
+    <div class="test-area">
+        <h2>🎵 Test Música</h2>
+        <button onclick="testMusic()">Reproducir Música al 15%</button>
+        <button onclick="stopMusic()">Detener Música</button>
+        <audio id="bg-music" loop>
+            <source src="./Recursos/Musica/001.mp3" type="audio/mpeg">
+        </audio>
+        <div id="music-log"></div>
+    </div>
+    
+    <div class="test-area">
+        <h2>🌲 Test Imagen Cuidar el Pino</h2>
+        <button onclick="showCarePine()">Mostrar Imagen por 3 segundos</button>
+        <div id="care-pine-container" class="hidden">
+            <img id="care-pine-img" src="./Recursos/EntradaAlPino/cuidaelpino.jpg" alt="Cuidar el pino">
+            <p>arbolico echo con bien mucho caliño todo pro</p>
+        </div>
+        <div id="care-pine-log"></div>
+    </div>
+    
+    <div class="test-area">
+        <h2>💌 Test Carta con Imagen Final</h2>
+        <button onclick="showLetter()">Mostrar Carta</button>
+        <div id="letter-container" class="hidden">
+            <h3>Carta de Navidad</h3>
+            <p>Texto de la carta...</p>
+            <div style="text-align: center; margin: 20px 0;">
+                <img id="final-img" src="./Recursos/ParaElFinal/yoquelerlamucho.jpeg" alt="Imagen final">
+            </div>
+            <button onclick="hideLetter()">Cerrar Carta</button>
+        </div>
+        <div id="letter-log"></div>
+    </div>
+
+    <script>
+        function log(elementId, message) {
+            const element = document.getElementById(elementId);
+            element.innerHTML += '<div>' + new Date().toLocaleTimeString() + ': ' + message + '</div>';
+        }
+        
+        function testMusic() {
+            const music = document.getElementById('bg-music');
+            music.volume = 0.15;
+            
+            music.play().then(() => {
+                log('music-log', '✅ Música iniciada al 15% de volumen');
+            }).catch(error => {
+                log('music-log', '❌ Error: ' + error.message);
+            });
+        }
+        
+        function stopMusic() {
+            const music = document.getElementById('bg-music');
+            music.pause();
+            music.currentTime = 0;
+            log('music-log', '⏹️ Música detenida');
+        }
+        
+        function showCarePine() {
+            const container = document.getElementById('care-pine-container');
+            container.classList.remove('hidden');
+            log('care-pine-log', '🌲 Mostrando imagen por 3 segundos...');
+            
+            setTimeout(() => {
+                container.classList.add('hidden');
+                log('care-pine-log', '✅ Imagen ocultada después de 3 segundos');
+            }, 3000);
+        }
+        
+        function showLetter() {
+            const container = document.getElementById('letter-container');
+            container.classList.remove('hidden');
+            log('letter-log', '💌 Carta mostrada con imagen final');
+        }
+        
+        function hideLetter() {
+            const container = document.getElementById('letter-container');
+            container.classList.add('hidden');
+            log('letter-log', '💌 Carta ocultada');
+        }
+        
+        // Verificar carga de recursos al cargar la página
+        window.addEventListener('load', () => {
+            // Verificar música
+            const music = document.getElementById('bg-music');
+            music.addEventListener('loadeddata', () => {
+                log('music-log', '✅ Archivo de música cargado correctamente');
+            });
+            music.addEventListener('error', () => {
+                log('music-log', '❌ Error cargando archivo de música');
+            });
+            
+            // Verificar imágenes
+            const carePineImg = document.getElementById('care-pine-img');
+            carePineImg.addEventListener('load', () => {
+                log('care-pine-log', '✅ Imagen cuidar el pino cargada');
+            });
+            carePineImg.addEventListener('error', () => {
+                log('care-pine-log', '❌ Error cargando imagen cuidar el pino');
+            });
+            
+            const finalImg = document.getElementById('final-img');
+            finalImg.addEventListener('load', () => {
+                log('letter-log', '✅ Imagen final cargada');
+            });
+            finalImg.addEventListener('error', () => {
+                log('letter-log', '❌ Error cargando imagen final');
+            });
+        });
+    </script>
+</body>
+</html>

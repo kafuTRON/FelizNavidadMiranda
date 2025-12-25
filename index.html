@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¡Feliz Navidad! 🎄</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="welcome-screen" class="screen active">
+        <div class="welcome-container">
+            <h1 class="welcome-title">🎄 ¡Hola! 🎄</h1>
+            <h2 class="welcome-question">¿Te gusta la Navidad?</h2>
+            <div class="button-container">
+                <button id="btn-yes" class="choice-button yes-button">Sí ✨</button>
+                <button id="btn-no" class="choice-button no-button">No 😔</button>
+            </div>
+        </div>
+    </div>
+    <div id="entry-screen" class="screen">
+        <div class="entry-container">
+            <img id="entry-image" class="entry-image" src="" alt="Imagen de entrada">
+            <video id="entry-video" class="entry-video" controls>
+                <source src="" type="video/mp4">
+                Tu navegador no soporta video HTML5.
+            </video>
+            <img id="care-pine-image" class="care-pine-image hidden" src="./Recursos/EntradaAlPino/cuidaelpino.jpg" alt="Cuida el pino">
+        </div>
+    </div>
+
+    <!-- Pantalla de Cuidar el Pino -->
+    <div id="care-pine-screen" class="screen">
+        <div class="care-pine-container">
+            <img id="care-pine-image" class="care-pine-image" src="./Recursos/EntradaAlPino/cuidaelpino.jpg" alt="Cuida el pino">
+            <div class="care-pine-message">🌲 ¡Cuida el pino navideño! 🌲</div>
+        </div>
+    </div>
+
+    <!-- Pantalla Principal del Pino -->
+    <div id="main-screen" class="screen">
+        <div class="main-container">
+            <img id="main-pine" class="main-pine" src="./Recursos/Principal/SuperPino.png" alt="Árbol de Navidad">
+            <div id="gifts-container" class="gifts-container">
+                <!-- Los regalos se generarán dinámicamente aquí -->
+            </div>
+            <div id="letter-container" class="letter-container hidden">
+                <img id="letter" class="letter" src="./Recursos/Carta/CartaCerrada.jpeg" alt="Carta navideña">
+            </div>
+        </div>
+        <video id="final-video" class="final-video hidden" controls>
+            <source src="" type="video/mp4">
+            Tu navegador no soporta video HTML5.
+        </video>
+    </div>
+
+    <!-- Pantalla de Carta Abierta -->
+    <div id="letter-screen" class="screen">
+        <div class="letter-content">
+            <div class="letter-text">
+                <p>wenas noches/dias MIRA nose cuando vera esto XD
+
+Solo quería desearte una Feliz Navidad y decirte lo mucho que te aprecio. Eres una persona increíble cada momento contigo se siente ligero, divertido y especial. el tiempo pasa volando cuando estoy contigo un minuto contigo vale mil años para mi.
+
+Sé que este año hubo momentos en los que dejamos de hablar, y me da pena saber que en parte fue por mi culpa. Aun así, aquí seguimos XDD quiero que sepas que siempre voy a estar para ti. Eres como mi otra mitad en muchas cosas, y valoro muchísimo tenerte en mi vida.
+
+Ojalá disfrutes tu viaje en CDMX, que la pases increíble, que disfrutes mucho explores cada rincon de CDMX y te llenes de momentos chidos alla. También te deseo un Año Nuevo lleno de cosas buenas y los mejores deseos para con todo mi cariño te escribo esta cartita improvisada ya que no estas aqui en oriyork XDD.
+
+Gracias por existir y por ser tú japi navidad miri. 🎄💫</p>
+                <div class="letter-final-image">
+                    <img id="letter-final-img" src="./Recursos/ParaElFinal/yoquelerlamucho.jpeg" alt="Imagen final">
+                </div>
+            </div>
+            <button id="close-letter" class="close-button">Cerrar</button>
+        </div>
+    </div>
+
+    <!-- Pantalla de Secuencia Negativa -->
+    <div id="negative-screen" class="screen">
+        <div class="negative-container">
+            <img id="negative-image" class="negative-image" src="" alt="Imagen negativa">
+            <div id="negative-message" class="negative-message"></div>
+            <div id="negative-gif" class="negative-gif hidden">
+                <!-- GIF final con audio en bucle -->
+            </div>
+        </div>
+        <audio id="negative-audio" loop>
+            <source src="" type="audio/mpeg">
+            Tu navegador no soporta audio HTML5.
+        </audio>
+    </div>
+    <div id="gift-modal" class="modal hidden">
+        <div class="modal-content">
+            <img id="gift-image" class="gift-image" src="" alt="Regalo">
+            <div id="gift-message" class="gift-message"></div>
+            <div id="gift-explosion" class="gift-explosion">
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para secuencia negativa -->
+    <div id="negative-modal" class="modal hidden">
+        <div class="modal-content negative-modal-content">
+            <img id="negative-modal-image" class="negative-modal-image" src="" alt="Imagen negativa">
+            <div id="negative-modal-message" class="negative-modal-message"></div>
+            <button id="negative-modal-close" class="negative-modal-close">Continuar</button>
+        </div>
+    </div>
+
+    <!-- Audio para efectos de sonido -->
+    <audio id="explosion-audio">
+        <source src="" type="audio/mpeg">
+        Tu navegador no soporta audio HTML5.
+    </audio>
+
+    <!-- Audio de fondo -->
+    <audio id="background-music">
+        <source src="./Recursos/Musica/001.mp3" type="audio/mpeg">
+        Tu navegador no soporta audio HTML5.
+    </audio>
+
+    <script src="script.js"></script>
+</body>
+</html>
